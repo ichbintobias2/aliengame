@@ -1,15 +1,12 @@
 # Maven Packaging Path
-aliengame/target/
+/target
 
 # Eclipse settings
-aliengame/.settings
-
-aliengame/.classpath
-
-aliengame/.project
+.settings
+.classpath
+.project
 
 # Litiengine runtime files
-aliengame/crash.txt
-aliengame/game.log
-aliengame/game.log.*
-/target/
+crash.txt
+game.log
+game.log.*
