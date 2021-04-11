@@ -30,7 +30,7 @@ public class Player extends Creature implements IUpdateable {
 	private final ChargeAbility chargeAbility;
 	
 	private Player() {
-		super("src\\main\\resources\\sprites\\player");
+		super("src\\main\\resources\\sprites\\spartan\\spartan");
 		
 		this.animations().add(new Animation(Resources.spritesheets().get(Animations.PLAYER_ATTACK_RIGHT), false));
 		attackAbility = new BaseAttackAbility(this);
