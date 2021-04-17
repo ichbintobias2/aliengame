@@ -28,7 +28,7 @@ public class BaseAttackAbility extends Ability {
 	@Override
 	public AbilityExecution cast() {
 		GameLogic.setGamestate(Gamestate.LOCKED);
-		executor.animations().play(Animations.PLAYER_ATTACK_RIGHT);
+		executor.animations().play(Animations.SPARTAN_ATTACK_RIGHT);
 		hitEffect.apply(findAffectedEnemy());
 
 		return super.cast();

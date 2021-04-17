@@ -1,6 +1,8 @@
 package de.tobias.aliengame.enums;
 
 public class Animations {
-	public static final String PLAYER_ATTACK_RIGHT = "spartan-attack-right";
-	// public static final String PLAYER_ATTACK_LEFT = "player-attack-left";
+	public static final String SPARTAN_IDLE = "spartan-idle-right";
+	public static final String SPARTAN_WALK = "spartan-walk-right";
+	
+	public static final String SPARTAN_ATTACK_RIGHT = "spartan-attack-right";
 }
