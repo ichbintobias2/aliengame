@@ -2,7 +2,6 @@ package de.tobias.aliengame.entities;
 
 import java.awt.event.KeyEvent;
 
-import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.entities.CollisionInfo;
 import de.gurkenlabs.litiengine.entities.Creature;
 import de.gurkenlabs.litiengine.entities.EntityInfo;
@@ -19,7 +18,7 @@ import lombok.Getter;
 @EntityInfo(width = 48, height = 48)
 @MovementInfo(velocity = 70)
 @CollisionInfo(collisionBoxWidth = 48, collisionBoxHeight = 48, collision = true)
-public class Player extends Creature implements IUpdateable {
+public class Player extends Creature {
 	
 	private static Player instance;
 	
@@ -30,9 +29,13 @@ public class Player extends Creature implements IUpdateable {
 	private final ChargeAbility chargeAbility;
 	
 	private Player() {
-		super("src\\main\\resources\\sprites\\spartan\\spartan");
+		super("spartan");
 		
-		this.animations().add(new Animation(Resources.spritesheets().get(Animations.PLAYER_ATTACK_RIGHT), false));
+		this.createAnimationController();
+		this.animations().setDefault(new Animation(Resources.spritesheets().get(Animations.SPARTAN_IDLE), true));
+		this.animations().add(new Animation(Resources.spritesheets().get(Animations.SPARTAN_WALK), true));
+		this.animations().add(new Animation(Resources.spritesheets().get(Animations.SPARTAN_ATTACK_RIGHT), false));
+		
 		attackAbility = new BaseAttackAbility(this);
 		chargeAbility = new ChargeAbility(this);
 		
@@ -43,8 +46,9 @@ public class Player extends Creature implements IUpdateable {
 	    movementController.addRightKey(KeyEvent.VK_RIGHT);
 	    
 		this.setController(IMovementController.class, movementController);
-		this.getController(IMovementController.class).onMovementCheck(e -> {
-		      return true; // return GameLogic.getGamestate() == Gamestate.INGAME;
+		
+		this.movement().onMovementCheck(e -> {
+			return true; // return GameLogic.getGamestate() == Gamestate.INGAME;
 		});
 	}
 	
@@ -54,10 +58,5 @@ public class Player extends Creature implements IUpdateable {
 		}
 		
 		return instance;
-	}
-	
-	@Override
-	public void update() {
-		
 	}
 }
