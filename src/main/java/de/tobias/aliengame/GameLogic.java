@@ -5,6 +5,7 @@ import de.gurkenlabs.litiengine.entities.Prop;
 import de.gurkenlabs.litiengine.entities.Spawnpoint;
 import de.gurkenlabs.litiengine.graphics.Camera;
 import de.gurkenlabs.litiengine.graphics.PositionLockCamera;
+import de.tobias.aliengame.entities.Enemy;
 import de.tobias.aliengame.entities.Player;
 import de.tobias.aliengame.enums.Gamestate;
 import lombok.Getter;
@@ -42,6 +43,9 @@ public class GameLogic {
 			if (enter != null) {
 				enter.spawn(Player.instance());
 			}
+			
+			// TODO placing one enemy for testing, remove this later on
+			Game.world().environment().add(new Enemy(150, 50));
 		});
 	}
 }
