@@ -10,6 +10,6 @@ public class IngameScreen extends GameScreen {
 	
 	@Override
 	protected void initializeComponents() {
-		//
+		this.getComponents().add(Hud.instance());
 	}
 }
