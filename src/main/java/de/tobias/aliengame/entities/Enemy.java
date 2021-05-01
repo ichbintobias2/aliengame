@@ -1,5 +1,6 @@
 package de.tobias.aliengame.entities;
 
+import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.AnimationInfo;
 import de.gurkenlabs.litiengine.entities.Creature;
 import de.gurkenlabs.litiengine.entities.EntityInfo;
@@ -28,5 +29,17 @@ public class Enemy extends Creature {
 		
 		this.createAnimationController();
 		this.animations().add(new Animation(Resources.spritesheets().get(Animations.SPARTAN_ATTACK_RIGHT), false));
+		this.animations().add(new Animation(Resources.spritesheets().get(Animations.SPARTAN_DEATH), false));
+		
+		// the starting health of a normal enemy
+		this.getHitPoints().setBaseValue(40);
+		
+		this.onDeath(l -> {
+			this.animations().play(Animations.SPARTAN_DEATH);
+			int removeDelay = this.animations().get(Animations.SPARTAN_DEATH).getTotalDuration();
+			Game.loop().perform(removeDelay, () -> {
+			      Game.world().environment().remove(this);
+			});
+		});
 	}
 }

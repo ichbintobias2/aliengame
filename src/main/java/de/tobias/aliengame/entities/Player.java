@@ -2,6 +2,7 @@ package de.tobias.aliengame.entities;
 
 import java.awt.event.KeyEvent;
 
+import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.CollisionInfo;
 import de.gurkenlabs.litiengine.entities.Creature;
 import de.gurkenlabs.litiengine.entities.EntityInfo;
@@ -35,16 +36,29 @@ public class Player extends Creature {
 		this.animations().setDefault(new Animation(Resources.spritesheets().get(Animations.SPARTAN_IDLE), true));
 		this.animations().add(new Animation(Resources.spritesheets().get(Animations.SPARTAN_WALK), true));
 		this.animations().add(new Animation(Resources.spritesheets().get(Animations.SPARTAN_ATTACK_RIGHT), false));
+		this.animations().add(new Animation(Resources.spritesheets().get(Animations.SPARTAN_DEATH), false));
+		this.animations().add(new Animation(Resources.spritesheets().get(Animations.SPARTAN_DEAD), true));
 		
 		attackAbility = new BaseAttackAbility(this);
 		chargeAbility = new ChargeAbility(this);
 		
+		// the starting health of a player
+		this.getHitPoints().setBaseValue(100);
+		
+		this.onDeath(l -> {
+			this.animations().play(Animations.SPARTAN_DEATH);
+			int delay = this.animations().get(Animations.SPARTAN_DEATH).getTotalDuration();
+			Game.loop().perform(delay, () -> {
+				this.animations().play(Animations.SPARTAN_DEAD);
+			});
+		});
+		
 		KeyboardEntityController<Player> movementController = new KeyboardEntityController<>(this);
-	    movementController.addUpKey(KeyEvent.VK_UP);
-	    movementController.addDownKey(KeyEvent.VK_DOWN);
-	    movementController.addLeftKey(KeyEvent.VK_LEFT);
-	    movementController.addRightKey(KeyEvent.VK_RIGHT);
-	    
+		movementController.addUpKey(KeyEvent.VK_UP);
+		movementController.addDownKey(KeyEvent.VK_DOWN);
+		movementController.addLeftKey(KeyEvent.VK_LEFT);
+		movementController.addRightKey(KeyEvent.VK_RIGHT);
+		
 		this.setController(IMovementController.class, movementController);
 		
 		this.movement().onMovementCheck(e -> {

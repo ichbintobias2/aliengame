@@ -23,7 +23,9 @@ public class BaseAttackAbility extends Ability {
 	public BaseAttackAbility(Creature executor) {
 		super(executor);
 		this.executor = executor;
-		this.getAttributes().impactAngle().setBaseValue(360);
+		
+		this.getAttributes().impact().setBaseValue(10);
+		this.getAttributes().impactAngle().setBaseValue(180);
 	}
 	
 	@Override

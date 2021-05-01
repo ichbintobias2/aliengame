@@ -75,13 +75,15 @@ public class EnemyBehaviorController implements IBehaviorController {
 	
 	@Override
 	public void update() {
-		if (isPlayerInRange(attackingRange) && canAttack()) {
-			attack();
-			lastAttack = Game.time().now();
-		} else if (isPlayerInRange(walkingRange)) {
-			walkTowardsPlayer();
-		} else {
-			walkRandomly();
+		if (!creature.isDead()) {
+			if (isPlayerInRange(attackingRange) && canAttack() && !Player.instance().isDead()) {
+				attack();
+				lastAttack = Game.time().now();
+			} else if (isPlayerInRange(walkingRange)) {
+				walkTowardsPlayer();
+			} else {
+				walkRandomly();
+			}
 		}
 	}
 }

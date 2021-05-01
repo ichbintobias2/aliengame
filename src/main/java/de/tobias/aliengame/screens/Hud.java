@@ -8,6 +8,7 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.gui.GuiComponent;
 import de.gurkenlabs.litiengine.resources.Resources;
+import de.tobias.aliengame.entities.Player;
 
 public class Hud extends GuiComponent  {
 	
@@ -38,7 +39,7 @@ public class Hud extends GuiComponent  {
 	
 	@Override
 	public void render(Graphics2D g) {
-	//	if (GameLogic.getGamestate() == Gamestate.INGAME) {
+		// if (GameLogic.getGamestate() == Gamestate.INGAME) {
 			ImageRenderer.renderScaled(g, hudImage, x, y, scaleFactor);
 			ImageRenderer.renderScaled(g, playerIcon1, x + 20, y + 20, scaleFactor);
 			
@@ -46,12 +47,9 @@ public class Hud extends GuiComponent  {
 				ImageRenderer.renderScaled(g, playerIcon2, x + 1112, y + 20, scaleFactor);
 			}
 			
-			int currentHp = 50;
-			int maxHp = 100;
-			
-			int w = 580;
-			double percentHp = (double) currentHp / (double) maxHp;
-			double percentEng = (double) currentHp / (double) maxHp;
+			int w = 293; // pixel width of health bar in image file
+			double percentHp = Player.instance().getHitPoints().getRelativeCurrentValue();
+			double percentEng = 1;
 			
 			// Notification bar
 			// y+45
@@ -61,6 +59,6 @@ public class Hud extends GuiComponent  {
 			
 			g.setColor(Color.ORANGE);
 			g.fillRect((int) x + 309, (int) y + 145, (int) (w * percentEng), 28);
-		//}
+		// }
 	}
 }

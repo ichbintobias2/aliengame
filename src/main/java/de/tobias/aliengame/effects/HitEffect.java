@@ -21,7 +21,7 @@ public class HitEffect extends Effect {
 			return;
 		}
 		
-		final int damage = this.getAbility().getAttributes().value().get();
+		final int damage = this.getAbility().getAttributes().impact().get();
 		super.apply(affectedEntity);
 		
 		affectedEntity.hit(damage, this.getAbility());
