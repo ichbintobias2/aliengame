@@ -11,37 +11,39 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class EnemyBehaviorController implements IBehaviorController {
+	
 	private Enemy creature;
 	
 	@Getter @Setter
 	private boolean active = false;
 	
-	private final int attackingRange = 100;
-	private final int walkingRange = 15;
-	private final int yTolerance = 50;
+	private final int attackingRange = 30;
+	private final int walkingRange = 80;
+	private final int yTolerance = 45;
 	
 	private final int attackCooldown = 500;
 	private long lastAttack = 0;
 	
 	public EnemyBehaviorController(Enemy creature) {
 		this.creature = creature;
-		creature.setFacingDirection(Direction.LEFT); // TODO this is for testing, remove later
 	}
 	
 	private boolean isPlayerInRange(int range) {
-		// both have to have the same y coordinate to give this a 3d-ish feel
-		if (Player.instance().getY() >= creature.getY() - yTolerance && Player.instance().getY() <= creature.getY() + yTolerance) {
+		// both need to have about the same y coordinate to give this a 3d-ish feel
+		if (Player.instance().getY() >= (creature.getY() - yTolerance) && Player.instance().getY() <= (creature.getY() + yTolerance)) {
 			// check range from the right
-			if (creature.getFacingDirection() == Direction.RIGHT && Player.instance().getX() - creature.getX() <= range) {
+			double rightDistance = Player.instance().getX() - creature.getX();
+			if (rightDistance > 0 && rightDistance <= range) {
+				creature.setFacingDirection(Direction.RIGHT);
 				return true;
 			}
 			
-			// check range from the leftdd
-			if (creature.getFacingDirection() == Direction.LEFT && creature.getX() - Player.instance().getX() <= range) {
+			// check range from the left
+			double leftDistance = creature.getX() - Player.instance().getX();
+			if (leftDistance > 0 && leftDistance <= range) {
+				creature.setFacingDirection(Direction.LEFT);
 				return true;
 			}
-			
-			return false;
 		}
 		
 		return false;
@@ -53,11 +55,19 @@ public class EnemyBehaviorController implements IBehaviorController {
 	}
 	
 	private void walkTowardsPlayer() {
+		double playerY = Player.instance().getY();
+		double creatureY = creature.getY();
+		if (playerY > creatureY) {
+			Game.physics().move(creature, -90, creature.getTickVelocity());
+		} else {
+			Game.physics().move(creature, 90, creature.getTickVelocity());
+		}
 		
+		Game.physics().move(creature, this.getEntity().getAngle(), creature.getTickVelocity());
 	}
 	
 	private void walkRandomly() {
-		
+		Game.physics().move(creature, this.getEntity().getAngle(), creature.getTickVelocity());
 	}
 	
 	private boolean canAttack() {
@@ -75,7 +85,7 @@ public class EnemyBehaviorController implements IBehaviorController {
 	
 	@Override
 	public void update() {
-		if (!creature.isDead()) {
+		if (!creature.isDead() && !creature.getBaseAttackAbility().isExecuting()) {
 			if (isPlayerInRange(attackingRange) && canAttack() && !Player.instance().isDead()) {
 				attack();
 				lastAttack = Game.time().now();

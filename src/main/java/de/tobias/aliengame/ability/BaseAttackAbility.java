@@ -13,12 +13,17 @@ import de.tobias.aliengame.GameLogic;
 import de.tobias.aliengame.effects.HitEffect;
 import de.tobias.aliengame.enums.Animations;
 import de.tobias.aliengame.enums.Gamestate;
+import lombok.Getter;
+import lombok.Setter;
 
 public class BaseAttackAbility extends Ability {
 	
 	private Creature executor;
 	
 	private HitEffect hitEffect = new HitEffect(this);
+	
+	@Getter @Setter
+	private boolean executing;
 	
 	public BaseAttackAbility(Creature executor) {
 		super(executor);
@@ -31,8 +36,14 @@ public class BaseAttackAbility extends Ability {
 	@Override
 	public AbilityExecution cast() {
 		GameLogic.setGamestate(Gamestate.LOCKED);
+		this.setExecuting(true);
 		executor.animations().play(Animations.SPARTAN_ATTACK_RIGHT);
 		hitEffect.apply(findAffectedEnemy());
+		
+		int removeDelay = executor.animations().get(Animations.SPARTAN_ATTACK_RIGHT).getTotalDuration();
+		Game.loop().perform(removeDelay, () -> {
+		      this.setExecuting(false);
+		});
 		
 		return super.cast();
 	}

@@ -4,6 +4,7 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.AnimationInfo;
 import de.gurkenlabs.litiengine.entities.Creature;
 import de.gurkenlabs.litiengine.entities.EntityInfo;
+import de.gurkenlabs.litiengine.entities.MovementInfo;
 import de.gurkenlabs.litiengine.entities.behavior.IBehaviorController;
 import de.gurkenlabs.litiengine.graphics.animation.Animation;
 import de.gurkenlabs.litiengine.resources.Resources;
@@ -13,6 +14,7 @@ import de.tobias.aliengame.enums.Animations;
 import lombok.Getter;
 
 @EntityInfo(width = 48, height = 48)
+@MovementInfo(velocity = 25)
 @AnimationInfo(spritePrefix = "spartan")
 public class Enemy extends Creature {
 	

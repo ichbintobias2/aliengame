@@ -62,7 +62,7 @@ public class Player extends Creature {
 		this.setController(IMovementController.class, movementController);
 		
 		this.movement().onMovementCheck(e -> {
-			return true; // return GameLogic.getGamestate() == Gamestate.INGAME;
+			return !instance.getAttackAbility().isExecuting(); // return GameLogic.getGamestate() == Gamestate.INGAME;
 		});
 	}
 	
