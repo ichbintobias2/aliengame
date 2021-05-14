@@ -12,8 +12,7 @@ public class EnemyBehaviorController extends StateController<Spartan> {
 
   @Getter @Setter private boolean active = false;
 
-  private final int attackingRange = 40;
-  private final int walkingRange = 100;
+  private final int walkingRange = 200;
 
   private final int attackCooldown = 500;
   private long lastAttack = 0;
@@ -56,7 +55,9 @@ public class EnemyBehaviorController extends StateController<Spartan> {
   @Override
   public void update() {
     if (!getEntity().isDead() && !getEntity().getAttackAbility().isActive()) {
-      if (isPlayerInRange(attackingRange) && canAttack() && !Player.instance().isDead()) {
+      if (isPlayerInRange(getEntity().getAttackAbility().getAttributes().impact().get())
+          && canAttack()
+          && !Player.instance().isDead()) {
         attack();
       } else if (isPlayerInRange(walkingRange)) {
         walkTowardsPlayer();
