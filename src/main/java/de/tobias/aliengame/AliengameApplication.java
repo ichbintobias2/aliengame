@@ -15,7 +15,7 @@ public class AliengameApplication {
 		
 		Game.init(args);
 		
-		// Game.window().setIcon(Resources.images().get("src\\main\\resources\\sprites\\icon.png"));
+		// Game.window().setIcon(Resources.images().get("src\\main\\resources\\sprites\\icon.png")); // TODO make icon
 		Game.graphics().setBaseRenderScale(4f);
 		
 		Resources.load("game.litidata");
@@ -27,8 +27,8 @@ public class AliengameApplication {
 		Game.screens().add(new IngameScreen());
 		
 		Game.screens().display("INGAME");
-    Game.world().loadEnvironment(GameLogic.START_LEVEL);
-
+		Game.world().loadEnvironment(GameLogic.START_LEVEL);
+		
 		Game.start();
 	}
 }

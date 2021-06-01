@@ -22,8 +22,7 @@ public class ChargeEffect extends Effect {
 	@Override
 	public void update() {
 		final long deltaTime = Game.loop().getDeltaTime();
-		final double maxPixelsPerTick = this.getAbility().getAttributes().value().get() / 1000.0
-				* Math.min(deltaTime, 50);
+		final double maxPixelsPerTick = this.getAbility().getAttributes().value().get() / 1000.0 * Math.min(deltaTime, 50);
 		
 		if (!wasHit) {
 			for (ICombatEntity ent : Game.world().environment().findCombatEntities(this.getAbility().getExecutor().getHitBox(), e -> e.equals(Player.instance()))) {
@@ -40,8 +39,7 @@ public class ChargeEffect extends Effect {
 	
 	@Override
 	protected void apply(final ICombatEntity entity) {
-		this.angle = GeometricUtilities.calcRotationAngleInDegrees(this.getAbility().getExecutor().getCenter(),
-				Player.instance().getCenter());
+		this.angle = GeometricUtilities.calcRotationAngleInDegrees(this.getAbility().getExecutor().getCenter(), Player.instance().getCenter());
 		wasHit = false;
 		// Game.audio().playSound("run.ogg");
 		super.apply(entity);

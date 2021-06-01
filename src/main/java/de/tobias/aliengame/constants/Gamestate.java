@@ -1,4 +1,4 @@
-package de.tobias.aliengame.enums;
+package de.tobias.aliengame.constants;
 
 public enum Gamestate {
 	INGAME, LOCKED
