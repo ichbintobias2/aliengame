@@ -1,5 +1,5 @@
 package de.tobias.aliengame.constants;
 
 public enum Gamestate {
-	INGAME, LOCKED
+	SELECTION, INGAME, LOCKED
 }

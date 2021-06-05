@@ -1,5 +1,8 @@
 package de.tobias.aliengame;
 
+import java.util.Arrays;
+import java.util.List;
+
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.Spawnpoint;
 import de.gurkenlabs.litiengine.graphics.Camera;
@@ -17,6 +20,9 @@ public class GameLogic {
 	@Getter @Setter
 	private static Gamestate gamestate;
 	
+	private static List<String> spritesheets = Arrays.asList("spartan");
+	private static int spritesheetIterator = 0;
+	
 	public static void init() {
 		Camera camera = new PositionLockCamera(Player.instance());
 		camera.setClampToMap(true);
@@ -31,10 +37,40 @@ public class GameLogic {
 				enter.spawn(Player.instance());
 			}
 			
-			// TODO placing one enemy for testing, remove this later on
-			Enemy newEnemy = new Enemy();
-			newEnemy.setLocation(150, 50);
-			Game.world().environment().add(newEnemy);
+			if (getGamestate() == Gamestate.INGAME) {
+				// TODO placing one enemy for testing, remove this later on
+				Enemy newEnemy = new Enemy();
+				newEnemy.setLocation(150, 50);
+				Game.world().environment().add(newEnemy);
+			}
+		});
+	}
+	
+	public static void switchPlayerSprite() {
+		if (getGamestate() != Gamestate.SELECTION) {
+			return;
+		}
+		
+		Player.instance().setSpritesheetName(spritesheets.get(spritesheetIterator));
+		spritesheetIterator++;
+		
+		if (spritesheetIterator >= spritesheets.size()) {
+			// Get back to the first option if you reach the end of selection
+			spritesheetIterator = 0;
+		}
+	}
+	
+	public static void choosePlayerAndStart() {
+		if (getGamestate() != Gamestate.SELECTION) {
+			return;
+		}
+		
+		Game.window().getRenderComponent().fadeOut(1500);
+		
+		Game.loop().perform(2500, () -> {
+			Game.screens().display("INGAME");
+			Game.world().loadEnvironment(GameLogic.START_LEVEL);
+			GameLogic.setGamestate(Gamestate.INGAME);
 		});
 	}
 }

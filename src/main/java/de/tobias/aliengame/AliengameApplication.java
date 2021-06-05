@@ -3,6 +3,8 @@ package de.tobias.aliengame;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.resources.Resources;
 import de.tobias.aliengame.screens.IngameScreen;
+import de.tobias.aliengame.screens.MenuScreen;
+import de.tobias.aliengame.screens.SelectionScreen;
 
 public class AliengameApplication {
 	
@@ -24,10 +26,12 @@ public class AliengameApplication {
 		GameLogic.init();
 		
 		// adding all screens that will be used
+		Game.screens().add(new MenuScreen());
+		Game.screens().add(new SelectionScreen());
 		Game.screens().add(new IngameScreen());
 		
-		Game.screens().display("INGAME");
-		Game.world().loadEnvironment(GameLogic.START_LEVEL);
+		Game.screens().display("MENU");
+		Game.world().loadEnvironment("main_menu");
 		
 		Game.start();
 	}
