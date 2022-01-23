@@ -6,6 +6,9 @@
 .classpath
 .project
 
+# IntelliJ IDEA
+.idea
+
 # Litiengine runtime files
 crash.txt
 game.log
