@@ -12,7 +12,7 @@ import lombok.Setter;
 
 public class GameLogic {
 	
-	public static String START_LEVEL = "ingame";
+	public static String START_LEVEL = "cyberpunk";
 	
 	@Getter @Setter
 	private static Gamestate gamestate;

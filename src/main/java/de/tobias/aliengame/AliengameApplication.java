@@ -2,6 +2,7 @@ package de.tobias.aliengame;
 
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.resources.Resources;
+import de.tobias.aliengame.constants.Sounds;
 import de.tobias.aliengame.screens.IngameScreen;
 
 public class AliengameApplication {
@@ -28,6 +29,7 @@ public class AliengameApplication {
 		
 		Game.screens().display("INGAME");
 		Game.world().loadEnvironment(GameLogic.START_LEVEL);
+		Game.audio().playMusic(Sounds.L1_CYBERPUNK);
 		
 		Game.start();
 	}
