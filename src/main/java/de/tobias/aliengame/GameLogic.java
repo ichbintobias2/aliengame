@@ -20,7 +20,7 @@ public class GameLogic {
 	@Getter @Setter
 	private static Gamestate gamestate;
 	
-	private static List<String> spritesheets = Arrays.asList("spartan");
+	private static final List<String> spritesheets = Arrays.asList("spartan", "knight");
 	private static int spritesheetIterator = 0;
 	
 	public static void init() {
@@ -46,17 +46,20 @@ public class GameLogic {
 		});
 	}
 	
-	public static void switchPlayerSprite() {
+	public static void switchPlayerSprite(int increase) {
 		if (getGamestate() != Gamestate.SELECTION) {
 			return;
 		}
 		
 		Player.instance().setSpritesheetName(spritesheets.get(spritesheetIterator));
-		spritesheetIterator++;
+		spritesheetIterator = spritesheetIterator + increase;
 		
 		if (spritesheetIterator >= spritesheets.size()) {
 			// Get back to the first option if you reach the end of selection
 			spritesheetIterator = 0;
+		} else if (spritesheetIterator < 0) {
+			// Get back to the last option if you reach the end of selection
+			spritesheetIterator = spritesheets.size() - 1;
 		}
 	}
 	
@@ -71,6 +74,7 @@ public class GameLogic {
 			Game.screens().display("INGAME");
 			Game.world().loadEnvironment(GameLogic.START_LEVEL);
 			GameLogic.setGamestate(Gamestate.INGAME);
+			Player.instance().enableMovement(true);
 		});
 	}
 }

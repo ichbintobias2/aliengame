@@ -3,6 +3,7 @@ package de.tobias.aliengame.menu;
 import de.gurkenlabs.litiengine.Game;
 import de.tobias.aliengame.GameLogic;
 import de.tobias.aliengame.constants.Gamestate;
+import de.tobias.aliengame.entities.Player;
 
 public class MainMenu extends KeyboardMenu {
 	
@@ -34,6 +35,7 @@ public class MainMenu extends KeyboardMenu {
 		// Game.window().getRenderComponent().fadeOut(1500);
 		
 		Game.loop().perform(1000, () -> {
+			Player.instance().enableMovement(false);
 			Game.screens().display("SELECTION");
 			Game.world().loadEnvironment("player_selection");
 			GameLogic.setGamestate(Gamestate.SELECTION);
