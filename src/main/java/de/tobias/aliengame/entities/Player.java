@@ -14,6 +14,7 @@ import lombok.Getter;
 public class Player extends Creature {
 	
 	private static Player instance;
+	private static Player instanceP2;
 	
 	@Getter
 	private final BaseAttackAbility attackAbility;
@@ -23,13 +24,17 @@ public class Player extends Creature {
 	
 	private boolean movementEnabled = true;
 	
-	private Player() {
+	private Player(boolean p1) {
 		super("spartan");
 		
 		attackAbility = new BaseAttackAbility(this);
 		chargeAbility = new ChargeAbility(this);
 		
-		this.addController(new KeyboardEntityController<>(this));
+		if (p1) {
+			this.addController(new KeyboardEntityController<>(this));
+		} else {
+			// TODO create movement controller for p2
+		}
 		this.movement().onMovementCheck(e -> movementEnabled && !instance.getAttackAbility().isActive());
 		
 		this.createAnimationController();
@@ -38,10 +43,18 @@ public class Player extends Creature {
 	
 	public static Player instance() {
 		if (instance == null) {
-			instance = new Player();
+			instance = new Player(true);
 		}
 		
 		return instance;
+	}
+	
+	public static Player instanceP2() {
+		if (instanceP2 == null) {
+			instanceP2 = new Player(false);
+		}
+		
+		return instanceP2;
 	}
 	
 	// TODO I added this because somehow checking for gamestate in onMovementCheck didn't work, fix later

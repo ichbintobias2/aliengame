@@ -43,7 +43,8 @@ public class MainMenu extends KeyboardMenu {
 	}
 	
 	private void startMultiplayer() {
-		// TODO
+		GameLogic.p2 = true;
+		startSelection();
 	}
 	
 	private void showInstructions() {

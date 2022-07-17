@@ -8,6 +8,7 @@ import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.graphics.ImageRenderer;
 import de.gurkenlabs.litiengine.gui.screens.GameScreen;
 import de.gurkenlabs.litiengine.resources.Resources;
+import de.tobias.aliengame.GameLogic;
 import de.tobias.aliengame.constants.Animations;
 import de.tobias.aliengame.entities.Player;
 
@@ -33,5 +34,10 @@ public class SelectionScreen extends GameScreen {
 		
 		Game.world().environment().add(Player.instance());
 		Player.instance().setLocation(new Point2D.Double(60, 60));
+		
+		if (GameLogic.p2) {
+			Game.world().environment().add(Player.instanceP2());
+			Player.instanceP2().setLocation(new Point2D.Double(210, 60));
+		}
 	}
 }

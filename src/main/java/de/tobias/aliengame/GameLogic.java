@@ -16,12 +16,14 @@ import lombok.Setter;
 public class GameLogic {
 	
 	public static String START_LEVEL = "ingame";
+	public static boolean p2 = false;
 	
 	@Getter @Setter
 	private static Gamestate gamestate;
 	
 	private static final List<String> spritesheets = Arrays.asList("spartan", "knight");
 	private static int spritesheetIterator = 0;
+	private static int spritesheetIteratorP2 = 0;
 	
 	public static void init() {
 		Camera camera = new PositionLockCamera(Player.instance());
@@ -31,10 +33,15 @@ public class GameLogic {
 		
 		Game.world().onLoaded(e -> {
 			// spawn the player instance on the spawn point with the name "spawn"
-			Spawnpoint enter = e.getSpawnpoint("spawn");
+			Spawnpoint spawnP1 = e.getSpawnpoint("spawnP1");
+			Spawnpoint spawnP2 = e.getSpawnpoint("spawnP2");
 			
-			if (enter != null) {
-				enter.spawn(Player.instance());
+			if (spawnP1 != null) {
+				spawnP1.spawn(Player.instance());
+			}
+			
+			if (spawnP2 != null && p2) {
+				spawnP2.spawn(Player.instanceP2());
 			}
 			
 			if (getGamestate() == Gamestate.INGAME) {
@@ -60,6 +67,23 @@ public class GameLogic {
 		} else if (spritesheetIterator < 0) {
 			// Get back to the last option if you reach the end of selection
 			spritesheetIterator = spritesheets.size() - 1;
+		}
+	}
+	
+	public static void switchPlayerSpriteP2(int increase) {
+		if (getGamestate() != Gamestate.SELECTION) {
+			return;
+		}
+		
+		Player.instanceP2().setSpritesheetName(spritesheets.get(spritesheetIteratorP2));
+		spritesheetIteratorP2 = spritesheetIteratorP2 + increase;
+		
+		if (spritesheetIteratorP2 >= spritesheets.size()) {
+			// Get back to the first option if you reach the end of selection
+			spritesheetIteratorP2 = 0;
+		} else if (spritesheetIteratorP2 < 0) {
+			// Get back to the last option if you reach the end of selection
+			spritesheetIteratorP2 = spritesheets.size() - 1;
 		}
 	}
 	

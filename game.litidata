@@ -36,9 +36,22 @@
       <property name="collisionType" value="STATIC"/>
      </properties>
     </object>
-    <object id="2" name="spawn" type="SPAWNPOINT" x="24" y="80" width="48" height="48">
+    <object id="2" name="spawnP1" type="SPAWNPOINT" x="16" y="96" width="24" height="24">
      <properties>
+      <property name="collisionAlign" value="CENTER"/>
+      <property name="collisionType" value="DYNAMIC"/>
+      <property name="collisionValign" value="DOWN"/>
       <property name="spawnDirection" value="RIGHT"/>
+      <property name="spawnPivot" value="DIMENSION_CENTER"/>
+     </properties>
+    </object>
+    <object id="3" name="spawnP2" type="SPAWNPOINT" x="48" y="64" width="24" height="24">
+     <properties>
+      <property name="collisionAlign" value="CENTER"/>
+      <property name="collisionType" value="DYNAMIC"/>
+      <property name="collisionValign" value="DOWN"/>
+      <property name="spawnDirection" value="DOWN"/>
+      <property name="spawnPivot" value="DIMENSION_CENTER"/>
      </properties>
     </object>
    </objectgroup>
