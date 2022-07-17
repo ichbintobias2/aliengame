@@ -8,6 +8,7 @@ import de.tobias.aliengame.ability.BaseAttackAbility;
 import de.tobias.aliengame.ability.ChargeAbility;
 import de.tobias.aliengame.constants.Animations;
 import de.tobias.aliengame.constants.Gamestate;
+import de.tobias.aliengame.entities.controllers.PlayerMovementController;
 import lombok.Getter;
 
 @CombatInfo(team = 0, hitpoints = 100)
@@ -31,9 +32,9 @@ public class Player extends Creature {
 		chargeAbility = new ChargeAbility(this);
 		
 		if (p1) {
-			this.addController(new KeyboardEntityController<>(this));
+			this.addController(new PlayerMovementController(this));
 		} else {
-			// TODO create movement controller for p2
+			this.addController(new PlayerMovementController(this, false));
 		}
 		this.movement().onMovementCheck(e -> movementEnabled && !instance.getAttackAbility().isActive());
 		
