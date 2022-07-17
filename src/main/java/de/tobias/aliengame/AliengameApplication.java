@@ -30,7 +30,7 @@ public class AliengameApplication {
 		Game.screens().add(new SelectionScreen());
 		Game.screens().add(new IngameScreen());
 		
-		Game.screens().display("MENU");
+		// Game.screens().display("MENU");
 		Game.world().loadEnvironment("main_menu");
 		
 		Game.start();

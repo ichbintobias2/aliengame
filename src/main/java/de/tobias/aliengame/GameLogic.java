@@ -65,9 +65,9 @@ public class GameLogic {
 			return;
 		}
 		
-		Game.window().getRenderComponent().fadeOut(1500);
+		// Game.window().getRenderComponent().fadeOut(1500);
 		
-		Game.loop().perform(2500, () -> {
+		Game.loop().perform(1000, () -> {
 			Game.screens().display("INGAME");
 			Game.world().loadEnvironment(GameLogic.START_LEVEL);
 			GameLogic.setGamestate(Gamestate.INGAME);

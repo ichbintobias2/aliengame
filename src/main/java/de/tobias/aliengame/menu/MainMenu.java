@@ -14,7 +14,7 @@ public class MainMenu extends KeyboardMenu {
 		super(centerX - buttonWidth / 2, centerY * 1.3, buttonWidth, centerY / 2, "Start 1P", "Start 2P", "Instructions", "Quit");
 		
 		onConfirm(c -> {
-			switch (c.intValue()) {
+			switch (c) {
 			case 0:
 				startSelection();
 				break;
@@ -31,9 +31,9 @@ public class MainMenu extends KeyboardMenu {
 	
 	private void startSelection() {
 		setEnabled(false);
-		Game.window().getRenderComponent().fadeOut(1500);
+		// Game.window().getRenderComponent().fadeOut(1500);
 		
-		Game.loop().perform(2500, () -> {
+		Game.loop().perform(1000, () -> {
 			Game.screens().display("SELECTION");
 			Game.world().loadEnvironment("player_selection");
 			GameLogic.setGamestate(Gamestate.SELECTION);
